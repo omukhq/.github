@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="18 18 72 72" width="72" height="72">
+  <!-- Gallery's launcher icon: one photo, a sun over a teal lagoon, with its top corner turned down like a page. The 72 dp centre of the 108 dp adaptive icon, on its graphite ground. -->
+  <defs>
+    <linearGradient id="lagoon" x1="27" y1="33" x2="81" y2="75" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3CC8B4"/>
+      <stop offset="1" stop-color="#1E7F86"/>
+    </linearGradient>
+  </defs>
+  <rect x="18" y="18" width="72" height="72" fill="#1F1F1F"/>
+  <path d="M34 33H62L81 52V68Q81 75 74 75H34Q27 75 27 68V40Q27 33 34 33Z" fill="url(#lagoon)"/>
+  <path d="M27 62H81V68Q81 75 74 75H34Q27 75 27 68Z" fill="#0B4F55" fill-opacity="0.38"/>
+  <path d="M34.5 46a5.5 5.5 0 1 0 11 0a5.5 5.5 0 1 0 -11 0Z" fill="#FFFFFF"/>
+  <path d="M60.5 35L79 53.5H64.5Q60.5 53.5 60.5 49.5Z" fill="#000000" fill-opacity="0.24"/>
+  <path d="M62 33L81 52H66Q62 52 62 48Z" fill="#FFFFFF"/>
+</svg>
