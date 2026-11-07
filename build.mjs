@@ -20,18 +20,24 @@ mkdirSync(join(out, 'icons'), { recursive: true });
 const MARK =
   'M7 2h8l5 5v8l-5 5H7l-5-5V7zm2 5L7 9v4l2 2h4l2-2V9l-2-2z';
 
-function banner(theme) {
+/**
+ * The banner. [frame] gives a taller canvas (the social preview): the content
+ * moves down by its shift, and the large faint word moves further down.
+ */
+function banner(theme, frame = { height: T.banner.height, shift: 0, ghostDrop: 0 }) {
   const c = T.color[theme];
   const b = T.banner;
   const markY = b.markTop;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${b.width}" height="${b.height}" viewBox="0 0 ${b.width} ${b.height}" role="img" aria-label="Omuk: free, private apps for Mac and Android">
-  <rect width="${b.width}" height="${b.height}" fill="${c.canvas}"/>
-  <text x="${b.width - b.ghostRight - b.ghostWidth}" y="${b.ghostBaseline}" textLength="${b.ghostWidth}" lengthAdjust="spacingAndGlyphs" font-family="${T.font.sans}" font-size="${b.ghostSize}" font-weight="${b.ghostWeight}" fill="${c.ghost}">omuk</text>
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${b.width}" height="${frame.height}" viewBox="0 0 ${b.width} ${frame.height}" role="img" aria-label="Omuk: free, private apps for Mac and Android">
+  <rect width="${b.width}" height="${frame.height}" fill="${c.canvas}"/>
+  <g transform="translate(0 ${frame.shift})">
+  <text x="${b.width - b.ghostRight - b.ghostWidth}" y="${b.ghostBaseline + frame.ghostDrop}" textLength="${b.ghostWidth}" lengthAdjust="spacingAndGlyphs" font-family="${T.font.sans}" font-size="${b.ghostSize}" font-weight="${b.ghostWeight}" fill="${c.ghost}">omuk</text>
   <path transform="translate(${b.gutter} ${markY}) scale(${b.markScale})" d="${MARK}" fill="${c.fg}" fill-rule="evenodd"/>
   <text x="${b.gutter}" y="${b.wordmarkBaseline}" font-family="${T.font.sans}" font-size="${b.wordmarkSize}" font-weight="${b.wordmarkWeight}" letter-spacing="${b.wordmarkTracking}" fill="${c.fg}">omuk</text>
   <text x="${b.gutter}" y="${b.taglineBaseline}" font-family="${T.font.sans}" font-size="${b.taglineSize}" fill="${c.body}">Free, private apps for Mac and Android.</text>
   <circle cx="${b.gutter + b.dotRadius}" cy="${b.metaBaseline - b.metaSize / 3}" r="${b.dotRadius}" fill="${c.available}"/>
   <text x="${b.gutter + b.dotRadius * 4}" y="${b.metaBaseline}" font-family="${T.font.mono}" font-size="${b.metaSize}" letter-spacing="${b.metaTracking}" fill="${c.muted}">NO ADS · NO ACCOUNT · NO ANALYTICS</text>
+  </g>
 </svg>
 `;
 }
@@ -73,6 +79,8 @@ function glyphIcon(slug) {
 for (const theme of ['dark', 'light']) {
   writeFileSync(join(out, `banner-${theme}.svg`), banner(theme));
 }
+// The social preview (GitHub: Settings → Social preview). Render it to PNG to upload.
+writeFileSync(join(here, 'social-preview.svg'), banner('dark', T.social));
 for (const slug of Object.keys(GLYPHS)) {
   writeFileSync(join(out, 'icons', `${slug}.svg`), glyphIcon(slug));
 }

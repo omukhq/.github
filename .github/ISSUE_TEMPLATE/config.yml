@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a problem or suggest an idea
+    url: https://omuk.dev/support/
+    about: Use the support form on omuk.dev. The developer reads every message.
